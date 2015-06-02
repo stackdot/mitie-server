@@ -30,54 +30,50 @@
 
 import sys, os, json, web
 
+# specify path to MITIE and import
 parent = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(parent + '/../MITIE/mitielib')
 from mitie import *
 
-urls = { '/ner', 'NerHandler'}
-
+# load the MITIE models
 print "\nloading NER model..."
 ner = named_entity_extractor('../MITIE/MITIE-models/english/ner_model.dat')
 print "\nTags output by this NER model:", ner.get_possible_ner_tags()
 
+# define the web application
 class MyApplication(web.application):
     def run(self, argv):
         func = self.wsgifunc()
         return web.httpserver.runsimple(func, (sys.argv[1], int(sys.argv[2])))
 
+# define the REST endpoints
+urls = { '/ner', 'NerHandler'}
 app = MyApplication(urls, globals())
 
+# NER
 def extractEntities(text):
     response = {}
     response['text'] = text
     response['tokens'] = tokenize(text)
-    print "\nTokenized input:", response['tokens']
 
     global ner
     entities = ner.extract_entities(response['tokens'])
-    print "\nEntities found:", entities
-    print "\nNumber of entities detected:", len(entities)
 
     response['entities'] = []
     for e in entities:
         range = e[0]
         tag = e[1]
         score = e[2]
-        score_text = "{:0.3f}".format(score)
         entity_text = " ".join(response['tokens'][i] for i in range)
-        print "   Score: " + score_text + ": " + tag + ": " + entity_text
         result = {"score":score, "tag": tag, "label": entity_text}
         response['entities'].append(result)
     return response
 
+# REST handler
 class NerHandler:
     def POST(self):
         data = web.data()
-        print "\nData:", data
-
         text = json.loads(data)['text']
-        print "\nText:", text
-
         result = []
         if isinstance(text, list):
             for item in text:
@@ -87,6 +83,6 @@ class NerHandler:
 
         return json.dumps(result)
 
-
+# main() entry point
 if __name__ == "__main__":
     app.run(argv=sys.argv)
