@@ -5,7 +5,7 @@ This project is a simple HTTP server (based on web.py) that provides REST access
 
 ## How to build
 
-If not, you can use the provided [Vagrant](https://www.vagrantup.com/) VM:
+If don't have Docker in your development environment, you can use the provided [Vagrant](https://www.vagrantup.com/) VM:
 
 	vagrant up
 	vagrant ssh
