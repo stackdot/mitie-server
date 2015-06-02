@@ -2,10 +2,11 @@
 FROM centos:centos7
 
 RUN yum -y install epel-release
+RUN yum -y groupinstall 'Development Tools'
 RUN yum -y install git make wget tar bzip2
 RUN yum -y install install -y python python-devel python-distribute python-pip
 
-RUN pip install web.py mimerender
+RUN pip install web.py
 
 # download MITIE
 RUN cd /; git clone https://github.com/mit-nlp/MITIE.git
@@ -20,4 +21,4 @@ RUN cd /MITIE; make
 ADD src /mitie-server
 
 EXPOSE 8888
-CMD ["node", "/mitie-server/app.js"]
+CMD ["/mitie-server/server.py", "0.0.0.0 8888"]
