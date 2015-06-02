@@ -21,4 +21,4 @@ RUN cd /MITIE; make
 ADD src /mitie-server
 
 EXPOSE 8888
-CMD ["/mitie-server/server.py", "0.0.0.0 8888"]
+CMD ["/mitie-server/server.py", "0.0.0.0", "8888"]
