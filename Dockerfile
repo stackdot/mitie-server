@@ -3,8 +3,7 @@ FROM centos:centos7
 
 RUN yum -y install epel-release
 RUN yum -y groupinstall 'Development Tools'
-RUN yum -y install git make wget tar bzip2
-RUN yum -y install install -y python python-devel python-distribute python-pip
+RUN yum -y install git make wget tar bzip2 python python-devel python-distribute python-pip
 
 RUN pip install web.py
 
