@@ -9,3 +9,17 @@ publish:
     password: $$DRONE_REGISTRY_PASS
     email: drone@stackdot.com
     storage_driver: overlay
+
+
+deploy:
+  rancher:
+    url: $$RANCHER_URL
+    access_key: $$RANCHER_KEY
+    secret_key: $$RANCHER_SECRET
+    service: stackdot/mitie
+    docker_image: docker.stackdot.com/stackdot/mitie-server:$$BRANCH.$$BUILD_NUMBER
+    confirm: true
+    timeout: 300
+    start_first: true
+    when:
+      branch: master
