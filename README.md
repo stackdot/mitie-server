@@ -1,4 +1,10 @@
-mitie-server
+[![Build Status](https://drone.stackdot.com/api/badges/stackdot/mitie-server/status.svg)](https://drone.stackdot.com/stackdot/mitie-server)
+
+<p align="center">
+  <img src="assets/mighty.jpg" />
+</p>
+
+# mitie-server
 ===
 
 This project is a simple HTTP server (based on web.py) that provides REST access to NER provided by [MITIE](https://github.com/mit-nlp/MITIE).  The server, along with MITIE and its models, can be deployed and run in a Docker container.
